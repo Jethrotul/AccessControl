@@ -1,6 +1,11 @@
 <template>
-  <div>
-  <h1>Test WorkersList</h1>
+  <div class="containerListWorkers">
+  <h1 class="titleAccessName">Permitido</h1>
+  <Worker></Worker>
+  <Worker></Worker>
+  <Worker></Worker>
+  <Worker></Worker>
+  <Worker></Worker>
   <Worker></Worker>
   </div>
 </template>
@@ -20,20 +25,9 @@ export default class WorkersList extends Vue {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.titleAccessName {
+  margin-top: 50px;
+  margin-bottom: 30px;
 }
 </style>

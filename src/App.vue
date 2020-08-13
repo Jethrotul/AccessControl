@@ -1,9 +1,10 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
     <AccessEditor></AccessEditor>
-    <WorkersList></WorkersList>
-    <WorkersList></WorkersList>
+    <div class="workerList">
+      <WorkersList></WorkersList>
+      <WorkersList></WorkersList>
+    </div>
   </div>
 </template>
 
@@ -31,5 +32,11 @@ export default class App extends Vue {}
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+.workerList {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 </style>

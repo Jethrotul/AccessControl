@@ -28,19 +28,15 @@ export default class Worker extends Vue {}
   background-color: #f1f1f1;
   width: 300px;
   margin: auto;
+  margin-bottom: 7%;
 }
 .dataCard {
     text-align: center;
     color:#356881;
 }
 
-
-.profilePic {
- float: left; 
-}
-
 .picSized {
-    width: 100px;
+  width: 100px;
   height: 100px;
 }
 </style>
