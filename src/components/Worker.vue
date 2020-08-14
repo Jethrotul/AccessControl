@@ -12,9 +12,15 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import AccessEditor from "@/components/AccessEditor.vue"
 
-@Component
+@Component({
+  components: {
+    AccessEditor
+  }
+})
 export default class Worker extends Vue {}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

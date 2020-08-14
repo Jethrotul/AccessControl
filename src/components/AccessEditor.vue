@@ -6,17 +6,14 @@
         <img class="picSizedEditor" src="@/assets/img/perfil_default.jpg" alt />
       </div>
       <div class="dataEditor">
-        <form>
-          <p>Nombre</p>
-          <input v-model="message" placeholder="Nombre" />
-          <p>Apellidos</p>
-          <input v-model="message" placeholder="Apelidos" />
-          <select v-model="Selected">
-            <option disabled value selected>¿Acceso?</option>
-            <option>Permitido</option>
-            <option>Denegado</option>
-          </select>
-        </form>
+        <input type="text" v-model="workerName" placeholder="Nombre" />
+        <input type="text" v-model="workerSurname" placeholder="Apellidos" />
+        <select v-model="workersAccess">
+          <option disabled value>¿Acceso?</option>
+          <option value="true">Permitido</option>
+          <option value="false">Denegado</option>
+        </select>
+        <button v-on:click="addWorker">Aceptar</button>
       </div>
     </div>
   </div>
@@ -26,7 +23,23 @@
 import { Component, Vue } from "vue-property-decorator";
 
 @Component
-export default class AccessEditor extends Vue {}
+export default class AccessEditor extends Vue {
+  workerName = "";
+  workerSurname = "";
+  workersAccess = true;
+
+  // workers = [
+  //   { name: "Diego", surname: "Haz", Access: true },
+  //   { name: "Juan", surname: "Leal", Access: true },
+  //   { name: "Lola", surname: "Flores", Access: false },
+  //   { name: "Perico", surname: "delgado", Access: false },
+  // ];
+  workers = [];
+
+  addWorker() {
+    console.log("fiesta");
+  }
+}
 </script>
 
 
@@ -50,7 +63,7 @@ export default class AccessEditor extends Vue {}
 .dataEditor {
   color: red;
   display: flex;
-  flex-direction:column;
-  justify-content:flex-start;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 </style>

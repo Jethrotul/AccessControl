@@ -14,6 +14,8 @@ import AccessEditor from "./components/AccessEditor.vue";
 import Worker from "./components/Worker.vue";
 import WorkersList from "./components/WorkersList.vue";
 
+
+
 @Component({
   components: {
     AccessEditor,
@@ -21,8 +23,10 @@ import WorkersList from "./components/WorkersList.vue";
     WorkersList,
   },
 })
-export default class App extends Vue {}
-</script>
+export default class App extends Vue {
+  
+}
+</script> 
 
 <style>
 #app {
