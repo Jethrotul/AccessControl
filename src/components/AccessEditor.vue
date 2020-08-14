@@ -21,25 +21,30 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import firebase from 'firebase';
 
 @Component
 export default class AccessEditor extends Vue {
+  worker = "";
   workerName = "";
   workerSurname = "";
   workersAccess = true;
 
   // workers = [
-  //   { name: "Diego", surname: "Haz", Access: true },
-  //   { name: "Juan", surname: "Leal", Access: true },
-  //   { name: "Lola", surname: "Flores", Access: false },
-  //   { name: "Perico", surname: "delgado", Access: false },
+  //   { name: "Diego", surname: "Haz", access: true },
+  //   { name: "Juan", surname: "Leal", access: true },
+  //   { name: "Lola", surname: "Flores", access: false },
+  //   { name: "Perico", surname: "delgado", access: false },
   // ];
   workers = [];
 
   addWorker() {
+    firebase.database().ref('workers').push({name: this.worker.name, surname: this.worker.surname, access: this.worker.access})
+    .then((data)=>{console.log(data)})
+    .catch((error)=>{console.log(error)});
     console.log("fiesta");
   }
-}
+} 
 </script>
 
 

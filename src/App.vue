@@ -1,5 +1,16 @@
 <template>
   <div id="app">
+
+    <div>
+<label>Name:</label>
+<input type="text" v-model='name'>
+<button>Add</button>
+    </div>
+
+
+
+
+
     <AccessEditor></AccessEditor>
     <div class="workerList">
       <WorkersList></WorkersList>
@@ -24,7 +35,11 @@ import WorkersList from "./components/WorkersList.vue";
   },
 })
 export default class App extends Vue {
-  
+  data(){
+    return {
+      name:'John cena'
+    }
+  }
 }
 </script> 
 
