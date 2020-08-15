@@ -1,4 +1,5 @@
 import {initializeApp} from 'firebase';
+import firebase from 'firebase';
 
 const app = initializeApp({
     apiKey: "AIzaSyByTQqFM2t8jdhuBzoAxz8l_zsGS9Om-pE",
@@ -10,5 +11,4 @@ const app = initializeApp({
     appId: "1:1095584234295:web:6267490a80ed5f1993f8b2"
   });
   
-export const db = app.database();
-export const nameRef = db.ref('names');
+export const db = firebase.firestore();

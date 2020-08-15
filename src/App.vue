@@ -1,20 +1,9 @@
 <template>
   <div id="app">
-
-    <div>
-<label>Name:</label>
-<input type="text" v-model='name'>
-<button>Add</button>
-    </div>
-
-
-
-
-
     <AccessEditor></AccessEditor>
     <div class="workerList">
-      <WorkersList></WorkersList>
-      <WorkersList></WorkersList>
+      <WorkersList hasAccess="true"></WorkersList>
+      <WorkersList hasAccess="false"></WorkersList>
     </div>
   </div>
 </template>
@@ -24,8 +13,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 import AccessEditor from "./components/AccessEditor.vue";
 import Worker from "./components/Worker.vue";
 import WorkersList from "./components/WorkersList.vue";
-
-
+import { db } from "./firebase";
 
 @Component({
   components: {
@@ -34,13 +22,8 @@ import WorkersList from "./components/WorkersList.vue";
     WorkersList,
   },
 })
-export default class App extends Vue {
-  data(){
-    return {
-      name:'John cena'
-    }
-  }
-}
+export default class App extends Vue {}
+
 </script> 
 
 <style>

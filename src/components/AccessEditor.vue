@@ -8,10 +8,10 @@
       <div class="dataEditor">
         <input type="text" v-model="workerName" placeholder="Nombre" />
         <input type="text" v-model="workerSurname" placeholder="Apellidos" />
-        <select v-model="workersAccess">
-          <option disabled value>¿Acceso?</option>
-          <option value="true">Permitido</option>
-          <option value="false">Denegado</option>
+        <select v-model="workerAccess">
+          <option disabled value selected>¿Acceso?</option>
+          <option v-bind:value="true">Permitido</option>
+          <option v-bind:value="false">Denegado</option>
         </select>
         <button v-on:click="addWorker">Aceptar</button>
       </div>
@@ -21,30 +21,34 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import firebase from 'firebase';
+import { db } from "../firebase";
+import { IWorker } from "@/IWorker";
 
 @Component
 export default class AccessEditor extends Vue {
-  worker = "";
   workerName = "";
   workerSurname = "";
-  workersAccess = true;
-
-  // workers = [
-  //   { name: "Diego", surname: "Haz", access: true },
-  //   { name: "Juan", surname: "Leal", access: true },
-  //   { name: "Lola", surname: "Flores", access: false },
-  //   { name: "Perico", surname: "delgado", access: false },
-  // ];
-  workers = [];
+  workerAccess = false;
 
   addWorker() {
-    firebase.database().ref('workers').push({name: this.worker.name, surname: this.worker.surname, access: this.worker.access})
-    .then((data)=>{console.log(data)})
-    .catch((error)=>{console.log(error)});
-    console.log("fiesta");
+    const worker: IWorker = {
+      name: this.workerName,
+      surname: this.workerSurname,
+      hasAccess: this.workerAccess,
+    };
+
+    db.collection("workers")
+      .add(worker)
+      .then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+        // añadir mensaje de añadido debajo de botón
+      })
+      .catch(function (error) {
+        console.error("Error adding document: ", error);
+        // añadir mensaje de error debajo de botón
+      });
   }
-} 
+}
 </script>
 
 

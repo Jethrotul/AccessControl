@@ -1,29 +1,30 @@
 <template>
   <div class="card">
-    <div class="profilePic" >
-    <img class="picSized" src="@/assets/img/perfil_default.jpg" alt="Profile Picture" />
+    <div class="profilePic">
+      <img class="picSized" src="@/assets/img/perfil_default.jpg" alt="Profile Picture" />
     </div>
     <div class="dataCard">
-      <p>Nombre</p>
-      <h3>Apellidos</h3>
+      <p>{{workers.name}}</p>
+      <h3>{{workers}}</h3>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import AccessEditor from "@/components/AccessEditor.vue"
+import { Component, Vue, Prop } from "vue-property-decorator";
+import { IWorker } from '@/IWorker';
 
 @Component({
-  components: {
-    AccessEditor
-  }
+  components: {},
 })
-export default class Worker extends Vue {}
-
+export default class Worker extends Vue {
+  @Prop() private msg!: IWorker;
+  workers = [];
+  
+}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 .card {
   display: flex;
@@ -37,8 +38,8 @@ export default class Worker extends Vue {}
   margin-bottom: 7%;
 }
 .dataCard {
-    text-align: center;
-    color:#356881;
+  text-align: center;
+  color: #356881;
 }
 
 .picSized {
