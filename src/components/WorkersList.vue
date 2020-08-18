@@ -3,13 +3,9 @@
     <h1 class="titleAccessName">Permitido</h1>
     <ul>
       <li v-for="(worker, index) in workers" :key="index">
-        <p>{{worker.name}} {{worker.surname}} {{worker.access}}</p>
-        <Worker v-bind:workers="workers"></Worker>
+        <worker :worker="worker"></worker>
       </li>
-      
     </ul>
-    
-    
   </div>
 </template>
 
@@ -18,7 +14,7 @@ import { Component, Vue } from "vue-property-decorator";
 import Worker from "@/components/Worker.vue";
 import AccessEditor from "@/components/AccessEditor.vue";
 import { db } from "../firebase";
-import { IWorker } from '../IWorker'
+import { IWorker } from "../IWorker";
 
 @Component({
   components: {
@@ -39,11 +35,15 @@ export default class WorkersList extends Vue {
     db.collection("workers")
       .where("hasAccess", "==", this.hasAccess)
       .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach(doc => {
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
           const data = doc.data();
           console.log(doc.id, " => ", data);
-          this.workers.push({name: data.name, surname: data.surname, hasAccess: data.hasAccess});
+          this.workers.push({
+            name: data.name,
+            surname: data.surname,
+            hasAccess: data.hasAccess,
+          });
         });
       })
       .catch(function (error) {

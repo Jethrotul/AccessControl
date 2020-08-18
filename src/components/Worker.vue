@@ -4,23 +4,23 @@
       <img class="picSized" src="@/assets/img/perfil_default.jpg" alt="Profile Picture" />
     </div>
     <div class="dataCard">
-      <p>{{workers.name}}</p>
-      <h3>{{workers}}</h3>
+      <p >{{worker.name}}</p>
+      <h3>{{worker.surname}}</h3>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { IWorker } from '@/IWorker';
 
 @Component({
-  components: {},
+  components: {
+    
+  },
 })
 export default class Worker extends Vue {
-  @Prop() private msg!: IWorker;
-  workers = [];
-  
+  @Prop({default: 'Error'}) readonly worker!: string;
+
 }
 </script>
 
