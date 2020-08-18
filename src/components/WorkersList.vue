@@ -1,6 +1,7 @@
 <template>
   <div class="containerListWorkers">
-    <h1 class="titleAccessName">Permitido</h1>
+    <h1 class="titleAccessName" v-if="hasAccess">Permitido</h1>
+    <h1 class="titleAccessName" v-else>No Permitido</h1>
     <ul>
       <li v-for="(worker, index) in workers" :key="index">
         <worker :worker="worker"></worker>
@@ -10,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Prop } from "vue-property-decorator";
 import Worker from "@/components/Worker.vue";
 import AccessEditor from "@/components/AccessEditor.vue";
 import { db } from "../firebase";
@@ -23,8 +24,8 @@ import { IWorker } from "../IWorker";
   },
 })
 export default class WorkersList extends Vue {
-  hasAccess = true;
   workers: IWorker[] = [];
+  @Prop({default: false}) readonly hasAccess!: boolean;
 
   mounted() {
     this.getWorkers();

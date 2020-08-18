@@ -41,6 +41,7 @@ export default class AccessEditor extends Vue {
       .add(worker)
       .then(function (docRef) {
         console.log("Document written with ID: ", docRef.id);
+        // añadir emit para hacer un getworkers desde workerlist
         // añadir mensaje de añadido debajo de botón
       })
       .catch(function (error) {

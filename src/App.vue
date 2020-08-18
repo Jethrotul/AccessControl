@@ -2,8 +2,8 @@
   <div id="app">
     <AccessEditor></AccessEditor>
     <div class="workerList">
-      <WorkersList hasAccess="true"></WorkersList>
-      <WorkersList hasAccess="false"></WorkersList>
+      <WorkersList :hasAccess="true"></WorkersList>
+      <WorkersList :hasAccess="false"></WorkersList>
     </div>
   </div>
 </template>
