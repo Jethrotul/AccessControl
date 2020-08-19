@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card" @click="selected">
     <div class="profilePic">
       <img class="picSized" src="@/assets/img/perfil_default.jpg" alt="Profile Picture" />
     </div>
@@ -12,6 +12,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
+import { EventBus } from '@/bus';
 
 @Component({
   components: {
@@ -20,6 +21,12 @@ import { Component, Vue, Prop } from "vue-property-decorator";
 })
 export default class Worker extends Vue {
   @Prop({default: 'Error'}) readonly worker!: string;
+
+  selected () {
+    EventBus.$emit("editWorker", this.worker);
+    //console.log(this.worker);
+  }
+  
 
 }
 </script>

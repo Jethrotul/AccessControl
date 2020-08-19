@@ -9,17 +9,18 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from "vue-property-decorator";
+import { Component, Vue} from "vue-property-decorator";
 import AccessEditor from "./components/AccessEditor.vue";
 import Worker from "./components/Worker.vue";
 import WorkersList from "./components/WorkersList.vue";
-import { db } from "./firebase";
+import Upload from "./components/Upload.vue";
 
 @Component({
   components: {
     AccessEditor,
     Worker,
     WorkersList,
+    Upload
   },
 })
 export default class App extends Vue {}

@@ -3,17 +3,18 @@
     <h1>Editor Acceso Restringido</h1>
     <div class="containerEditor">
       <div class="profilePicEditor">
-        <img class="picSizedEditor" src="@/assets/img/perfil_default.jpg" alt />
+        <Upload> </Upload>
+        <!-- <img class="picSizedEditor" src="@/assets/img/perfil_default.jpg" alt /> -->
       </div>
       <div class="dataEditor">
-        <input type="text" v-model="workerName" placeholder="Nombre" />
-        <input type="text" v-model="workerSurname" placeholder="Apellidos" />
-        <select v-model="workerAccess">
+        <input type="text" v-model="worker.name" placeholder="Nombre" />
+        <input type="text" v-model="worker.surname" placeholder="Apellidos" />
+        <select v-model="worker.hasAccess">
           <option disabled value selected>¿Acceso?</option>
           <option v-bind:value="true">Permitido</option>
           <option v-bind:value="false">Denegado</option>
         </select>
-        <button v-on:click="addWorker">Aceptar</button>
+        <button @click="accept">Aceptar</button>
       </div>
     </div>
   </div>
@@ -23,31 +24,69 @@
 import { Component, Vue } from "vue-property-decorator";
 import { db } from "../firebase";
 import { IWorker } from "@/IWorker";
+import { EventBus } from "@/bus";
+import Upload from "./Upload.vue";
 
-@Component
+@Component({
+  components: {
+    Upload,
+  },
+})
 export default class AccessEditor extends Vue {
-  workerName = "";
-  workerSurname = "";
-  workerAccess = false;
+  worker: IWorker = {
+    id: null,
+    name: "",
+    surname: "",
+    hasAccess: false,
+  };
+
+  created() {
+    EventBus.$on("editWorker", (worker: IWorker) => {
+      this.worker = worker;
+    });
+  }
+
+  accept() {
+    if (this.worker.id == null) {
+      this.addWorker();
+    } else {
+      this.updateWorker();
+    }
+  }
 
   addWorker() {
-    const worker: IWorker = {
-      name: this.workerName,
-      surname: this.workerSurname,
-      hasAccess: this.workerAccess,
-    };
-
     db.collection("workers")
-      .add(worker)
-      .then(function (docRef) {
+      .add(this.worker)
+      .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
-        // añadir emit para hacer un getworkers desde workerlist
+        this.worker.id = docRef.id;
+        EventBus.$emit("workerAdded", this.worker);
         // añadir mensaje de añadido debajo de botón
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.error("Error adding document: ", error);
         // añadir mensaje de error debajo de botón
       });
+  }
+
+  updateWorker() {
+    if (this.worker.id != null) {
+      db.collection("workers")
+        .doc(this.worker.id)
+        .update({
+          name: this.worker.name,
+          surname: this.worker.surname,
+          hasAccess: this.worker.hasAccess,
+        })
+        .then(() => {
+          //console.log("worker updated");
+          EventBus.$emit("workerChanged", this.worker);
+        })
+        .catch((error) => {
+          console.error("Error updating worker: ", error);
+          // añadir mensaje de error debajo de botón
+        });
+    }
   }
 }
 </script>
