@@ -4,7 +4,6 @@
     <div class="containerEditor">
       <div class="profilePicEditor">
         <Upload> </Upload>
-        <!-- <img class="picSizedEditor" src="@/assets/img/perfil_default.jpg" alt /> -->
       </div>
       <div class="dataEditor">
         <input type="text" v-model="worker.name" placeholder="Nombre" />
