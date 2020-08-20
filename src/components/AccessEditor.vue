@@ -3,7 +3,7 @@
     <h1>Editor Acceso Restringido</h1>
     <div class="containerEditor">
       <div class="profilePicEditor">
-        <Upload> </Upload>
+        <Upload v-on:urlPic="pushUrlPic"></Upload>
       </div>
       <div class="dataEditor">
         <input type="text" v-model="worker.name" placeholder="Nombre" />
@@ -34,6 +34,7 @@ import Upload from "./Upload.vue";
 export default class AccessEditor extends Vue {
   worker: IWorker = {
     id: null,
+    urlPic: "",
     name: "",
     surname: "",
     hasAccess: false,
@@ -42,6 +43,10 @@ export default class AccessEditor extends Vue {
   created() {
     EventBus.$on("editWorker", (worker: IWorker) => {
       this.worker = worker;
+    });
+
+    EventBus.$on("urlPic", (urlPic: string) => {
+      console.log(urlPic);
     });
   }
 
@@ -74,6 +79,7 @@ export default class AccessEditor extends Vue {
         .doc(this.worker.id)
         .update({
           name: this.worker.name,
+          //urlPic: urlPic,
           surname: this.worker.surname,
           hasAccess: this.worker.hasAccess,
         })
@@ -86,6 +92,12 @@ export default class AccessEditor extends Vue {
           // añadir mensaje de error debajo de botón
         });
     }
+  }
+
+  pushUrlPic(url) {
+    console.log("esto es url en parent" + url);
+    this.worker.urlPic = url;
+    console.log(this.worker);
   }
 }
 </script>

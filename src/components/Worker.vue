@@ -1,7 +1,7 @@
 <template>
   <div class="card" @click="selected">
     <div class="profilePic">
-      <img class="picSized" src="@/assets/img/perfil_default.jpg" alt="Profile Picture" />
+      <img class="workerPic" :src="worker.urlPic" alt="Profile Picture" />
     </div>
     <div class="dataCard">
       <p >{{worker.name}}</p>
@@ -24,7 +24,6 @@ export default class Worker extends Vue {
 
   selected () {
     EventBus.$emit("editWorker", this.worker);
-    //console.log(this.worker);
   }
   
 
@@ -52,5 +51,9 @@ export default class Worker extends Vue {
 .picSized {
   width: 100px;
   height: 100px;
+}
+
+.workerPic {
+  width: 100px;
 }
 </style>

@@ -10,6 +10,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import firebase from "firebase";
+import { EventBus } from "@/bus";
+
 
 @Component({})
 export default class Worker extends Vue {
@@ -43,15 +45,17 @@ export default class Worker extends Vue {
         this.uploadPicture.uploadValue = 100;
         task.snapshot.ref.getDownloadURL().then((downloadURL) => {
           this.uploadPicture.picture = downloadURL;
+          this.$emit("urlPic", downloadURL);
         });
       }
     );
+    
   }
 }
 </script>
 
 <style scoped>
 img.preview {
-  width: 200px;
+  width: 100px;
 }
 </style>

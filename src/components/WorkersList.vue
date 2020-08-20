@@ -73,6 +73,7 @@ export default class WorkersList extends Vue {
           const data = doc.data();
           this.workers.push({
             id: doc.id,
+            urlPic: data.urlPic,
             name: data.name,
             surname: data.surname,
             hasAccess: data.hasAccess,
