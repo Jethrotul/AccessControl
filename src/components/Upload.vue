@@ -11,7 +11,7 @@
 import { Component, Vue } from "vue-property-decorator";
 import firebase from "firebase";
 import { EventBus } from "@/bus";
-
+import { IWorker } from "../IWorker";
 
 @Component({})
 export default class Worker extends Vue {
@@ -20,6 +20,12 @@ export default class Worker extends Vue {
     uploadValue: 0,
     picture: "",
   };
+
+  created() {
+    EventBus.$on("editWorker", (worker: IWorker) => {
+      this.uploadPicture.picture = worker.urlPic;
+    });
+  }
 
   onFileSelected(event) {
     this.uploadPicture.selectedFile = event.target.files[0];
@@ -49,7 +55,6 @@ export default class Worker extends Vue {
         });
       }
     );
-    
   }
 }
 </script>

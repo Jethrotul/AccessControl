@@ -44,10 +44,6 @@ export default class AccessEditor extends Vue {
     EventBus.$on("editWorker", (worker: IWorker) => {
       this.worker = worker;
     });
-
-    EventBus.$on("urlPic", (urlPic: string) => {
-      console.log(urlPic);
-    });
   }
 
   accept() {
@@ -59,11 +55,14 @@ export default class AccessEditor extends Vue {
   }
 
   addWorker() {
+    if (this.worker.urlPic == "") {
+      this.worker.urlPic = "https://firebasestorage.googleapis.com/v0/b/accesscontrolvue.appspot.com/o/img%2Fperfil_default.jpg?alt=media&token=6489451c-9ef8-4365-947d-d8b6b862714a";
+    }
     db.collection("workers")
-      .add(this.worker)
+      .add(this.worker) 
       .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
         this.worker.id = docRef.id;
+
         EventBus.$emit("workerAdded", this.worker);
         // añadir mensaje de añadido debajo de botón
       })
@@ -79,7 +78,6 @@ export default class AccessEditor extends Vue {
         .doc(this.worker.id)
         .update({
           name: this.worker.name,
-          //urlPic: urlPic,
           surname: this.worker.surname,
           hasAccess: this.worker.hasAccess,
         })
@@ -94,10 +92,8 @@ export default class AccessEditor extends Vue {
     }
   }
 
-  pushUrlPic(url) {
-    console.log("esto es url en parent" + url);
+  pushUrlPic(url: string) {
     this.worker.urlPic = url;
-    console.log(this.worker);
   }
 }
 </script>
