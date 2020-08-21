@@ -3,11 +3,13 @@
     <h1>Editor Acceso Restringido</h1>
     <div class="containerEditor">
       <div class="profilePicEditor">
-        <Upload v-on:urlPic="pushUrlPic"></Upload>
+        <Upload ref="pic" v-on:urlPic="pushUrlPic"></Upload>
       </div>
       <div class="dataEditor">
-        <input type="text" v-model="worker.name" placeholder="Nombre" />
-        <input type="text" v-model="worker.surname" placeholder="Apellidos" />
+        <button @click="newWorker">Trabajador nuevo</button>
+
+        <input type="text" v-model="worker.name" placeholder="Nombre" maxlength="20"/>
+        <input type="text" v-model="worker.surname" placeholder="Apellidos" maxlength="20"/>
         <select v-model="worker.hasAccess">
           <option disabled value selected>¿Acceso?</option>
           <option v-bind:value="true">Permitido</option>
@@ -46,6 +48,17 @@ export default class AccessEditor extends Vue {
     });
   }
 
+  newWorker() {
+    this.worker = {
+      id: null,
+      urlPic: "",
+      name: "",
+      surname: "",
+      hasAccess: false,
+    };
+    this.$refs.pic.newWorker();
+  }
+
   accept() {
     if (this.worker.id == null) {
       this.addWorker();
@@ -56,10 +69,11 @@ export default class AccessEditor extends Vue {
 
   addWorker() {
     if (this.worker.urlPic == "") {
-      this.worker.urlPic = "https://firebasestorage.googleapis.com/v0/b/accesscontrolvue.appspot.com/o/img%2Fperfil_default.jpg?alt=media&token=6489451c-9ef8-4365-947d-d8b6b862714a";
+      this.worker.urlPic =
+        "https://firebasestorage.googleapis.com/v0/b/accesscontrolvue.appspot.com/o/img%2Fperfil_default.jpg?alt=media&token=6489451c-9ef8-4365-947d-d8b6b862714a";
     }
     db.collection("workers")
-      .add(this.worker) 
+      .add(this.worker)
       .then((docRef) => {
         this.worker.id = docRef.id;
 
@@ -78,6 +92,7 @@ export default class AccessEditor extends Vue {
         .doc(this.worker.id)
         .update({
           name: this.worker.name,
+          urlPic: this.worker.urlPic,
           surname: this.worker.surname,
           hasAccess: this.worker.hasAccess,
         })
@@ -108,6 +123,7 @@ export default class AccessEditor extends Vue {
   padding: 16px;
   background-color: #f1f1f1;
   width: 600px;
+
   margin: auto;
 }
 
@@ -120,6 +136,6 @@ export default class AccessEditor extends Vue {
   color: red;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-evenly;
 }
 </style>

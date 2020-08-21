@@ -4,7 +4,7 @@
       <img class="workerPic" :src="worker.urlPic" alt="Profile Picture" />
     </div>
     <div class="dataCard">
-      <p >{{worker.name}}</p>
+      <p>{{worker.name}}</p>
       <h3>{{worker.surname}}</h3>
     </div>
   </div>
@@ -12,21 +12,18 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "vue-property-decorator";
-import { EventBus } from '@/bus';
+import { EventBus } from "@/bus";
 
 @Component({
-  components: {
-    
-  },
+  components: {},
 })
 export default class Worker extends Vue {
-  @Prop({default: 'Error'}) readonly worker!: string;
+  @Prop({ default: "Error" }) readonly worker!: string;
+  selection = true;
 
-  selected () {
+  selected() {
     EventBus.$emit("editWorker", this.worker);
   }
-  
-
 }
 </script>
 
