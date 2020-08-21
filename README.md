@@ -1,24 +1,7 @@
-# accesscontrol
+# Accesscontrol
 
-## Project setup
-```
-npm install
-```
+Pequeña aplicación para llevar el control de acceso a zonas restringidas de los trabajadores de la empresa.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+La aplicación se ha hecho mediante Vue con Typescript utilizando Firebase tanto para la base de datos como el almacenamiento de las fotos.
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
